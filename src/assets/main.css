@@ -1,21 +1,33 @@
-@import './base.css';
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap');
 
-#app {  
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+  width: 7px;
 }
 
-a,
-.purple {
-  text-decoration: none;
-  color: #6750A4;
-  transition: 0.4s;
+::-webkit-scrollbar-track{
+  background: #2D3748;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: #2c1b59;
-  }
+::-webkit-scrollbar-thumb{
+  background: #CBD5E0;
 }
 
+::-webkit-scrollbar-thumb:hover{
+  background: #718096;
+}
+
+.text-purple{
+  color: #6750A4 !important;
+}
+
+.border-purple{
+  border-color: #6750A4 !important;
+}
+
+.bg-purple{
+  background-color: #6750A4 !important;
+}

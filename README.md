@@ -1,21 +1,24 @@
-# urbansos_web
+# V-Dashboard
 
-This template should help get you started developing with Vue 3 in Vite.
+Dashboard starter template built with Vite, Vue 3, Tailwind CSS and TypeScript.
 
-## Project Setup
+Copied from https://github.com/tailwindcomponents/dashboard and converted to Vue.
 
-```sh
-npm install
+## Project setup
+```
+yarn
 ```
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
+### Compiles and hot-reloads for development
+```
+yarn dev
 ```
 
-### Compile and Minify for Production
-
-```sh
-npm run build
+### Compiles and minifies for production
 ```
+yarn build
+```
+
+## License & copyright
+
+Licensed under the [MIT License](LICENSE.md).

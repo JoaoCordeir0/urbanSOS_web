@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center justify-center h-screen px-6 bg-gray-900">
-    <div class="w-full max-w-sm p-6 bg-white rounded-md shadow-md">
+    <div class="w-full max-w-sm p-6 bg-white rounded-login shadow-md">
       <div class="flex items-center justify-center mb-5">
         <img 
           src="/logo_urbansos.png" 
@@ -13,9 +13,9 @@
         <label class="block">
           <span class="text-sm text-gray-700">Email or CPF</span>
           <input
-            type="email"
+            type="text"
             class="block w-full mt-1 border-gray-300 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-            v-model="email"
+            v-model="username"
           />
         </label>
 
@@ -33,7 +33,7 @@
 
           <div>
             <a
-              class="block text-sm text-purple fontme hover:underline"
+              class="block text-sm text-purple fontme hover:underline font-bold"
               href="#"
               >Forgot your password?</a
             >
@@ -43,7 +43,7 @@
         <div class="mt-6">
           <button
             type="submit"
-            class="w-full px-4 py-2 text-sm text-center text-white bg-purple rounded-md focus:outline-none hover:bg-indigo-500"
+            class="w-full px-4 py-2 text-sm text-center text-white btn-purple rounded-md focus:outline-none font-bold"
           >
             Sign in
           </button>
@@ -55,23 +55,40 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { useRouter } from "vue-router";
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+import { apiLogin } from "../hooks/useAuth"
 
 export default defineComponent({
-  setup() {
-    const router = useRouter();
-    const email = ref("");
+  setup() {    
+    const username = ref("");
     const password = ref("");
 
-    function login() {
-      router.push("/dashboard");
+    async function login() {            
+
+      if (username.value == "" || password.value == "") 
+      {
+        toast.warn('Fill in all the information!')
+        return
+      }
+
+      const result = await apiLogin(username.value, password.value)
+      
+      if (result.loginData.value.access_token != undefined) 
+      {
+        this.$router.push('/dashboard') 
+      }
+      else 
+      {
+        toast.error(result.loginData.value.message)            
+      }            
     }
 
     return {
       login,
-      email,
+      username,
       password,
     };
-  },
+  },    
 });
 </script>

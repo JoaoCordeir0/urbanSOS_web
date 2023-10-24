@@ -12,4 +12,5 @@ app.component('default-layout', DashboardLayout);
 app.component('empty-layout', EmptyLayout);
 
 app.use(router);
+
 app.mount('#app');

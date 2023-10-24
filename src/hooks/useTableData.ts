@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import { getToken } from './useJwt';
+import { getToken } from './useAuth';
 
 const urlApi = import.meta.env.VITE_URL_ENDPOINT  
 

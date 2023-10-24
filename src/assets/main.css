@@ -31,3 +31,16 @@
 .bg-purple{
   background-color: #6750A4 !important;
 }
+
+.rounded-login{
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.btn-purple{
+  background-color: #6750A4 !important;
+}
+
+.btn-purple:hover{
+  background-color: #402882 !important;
+}

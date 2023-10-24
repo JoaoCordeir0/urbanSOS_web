@@ -12,14 +12,14 @@
         </svg>
       </button>            
 
-      <div class="flex items-center justify-center">
+      <div class="flex items-center justify-center ml-3">
         <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" fill="rgb(103, 80, 164)">
           <path d="M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm92.49,313h0l-20,25a16,16,0,0,1-22.49,2.5h0l-67-49.72a40,40,0,0,1-15-31.23V112a16,16,0,0,1,16-16h32a16,16,0,0,1,16,16V256l58,42.5A16,16,0,0,1,348.49,321Z"/>
         </svg>
         <p
           class="ml-2 text-purple"
         >
-          <b>{{ displayDate }}</b>
+          <b> {{ hours }} : {{ minutes }} : {{ seconds }}</b>
         </p>
       </div>
       
@@ -60,10 +60,11 @@
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
               >Profile</a
             >            
-            <router-link
-              to="/"
+            <a
+              href="#"
+              @click="logout"
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-              >Log out</router-link
+              >Log out</a
             >
           </div>
         </transition>
@@ -76,19 +77,39 @@
 import { defineComponent, ref } from "vue";
 import { useSidebar } from "../hooks/useSidebar";
 
-export default defineComponent({
-  data(){
-    return{
-      displayDate: "20:00"
+export default defineComponent({     
+  data() {
+    return {
+      hours: 0,
+      minutes: 0,
+      seconds: 0
+    }
+  },
+  mounted() {
+    setInterval(() => this.setTime(), 1000)
+  },
+  methods: {
+    setTime() {
+      const date = new Date()
+      let hours = date.getHours()
+      let minutes = date.getMinutes()
+      let seconds = date.getSeconds()
+      this.hours = hours <= 9 ? `${hours}`.padStart(2, 0) : hours
+      this.minutes = minutes <= 9 ? `${minutes}`.padStart(2, 0) : minutes
+      this.seconds = seconds <= 9 ? `${seconds}`.padStart(2, 0) : seconds                  
+    },
+    logout(){      
+      localStorage.clear();
+      this.$router.push('/') 
     }
   },
   setup(_, { emit }) {
     const dropdownOpen = ref(false);
     const { isOpen } = useSidebar();
-
+  
     return {
       isOpen,
-      dropdownOpen,
+      dropdownOpen,    
     };
   },
 });

@@ -53,7 +53,7 @@ export async function getToken() {
     } 
     catch (e) 
     {
-        const token = ''
+        const token = 'null'
         return { token }
     }    
 }

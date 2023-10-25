@@ -42,7 +42,7 @@ export async function useTableDataReports() {
 }
 
 export async function useTableDataAdms() {    
-  const response = await fetch(`${key.urlApi}/user/admin/list/1'`, { headers: key.headerApi })
+  const response = await fetch(`${key.urlApi}/user/admin/list/2'`, { headers: key.headerApi })
   const data = await response.json()
 
   const admsData = Array()  

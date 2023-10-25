@@ -55,17 +55,19 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { apiLogin } from "../hooks/useAuth"
 
 export default defineComponent({
   setup() {    
+    const router = useRouter()
     const username = ref("");
     const password = ref("");
 
     async function login() {            
-
+      
       if (username.value == "" || password.value == "") 
       {
         toast.warn('Fill in all the information!')
@@ -76,7 +78,7 @@ export default defineComponent({
       
       if (result.loginData.value.access_token != undefined) 
       {
-        this.$router.push('/dashboard') 
+        router.push('/dashboard') 
       }
       else 
       {

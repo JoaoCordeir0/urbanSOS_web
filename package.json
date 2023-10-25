@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "serve": "vite preview"
+    "build": "vite build",
+    "build:debug": "vite build --debug"    
   },
   "dependencies": {
     "@tailwindcss/aspect-ratio": "^0.2.0",

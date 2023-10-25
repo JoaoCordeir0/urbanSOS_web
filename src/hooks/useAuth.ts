@@ -1,20 +1,17 @@
 import { ref } from 'vue';
-import { sign, verify } from 'jsonwebtoken'
+import { verify } from 'jsonwebtoken'
 
 const endpointKey = import.meta.env.VITE_KEY_ENDPOINT
-const urlApi = import.meta.env.VITE_URL_ENDPOINT  
+const endpointUrl = import.meta.env.VITE_URL_ENDPOINT  
 
-
-// Interface da tabela de reports
-export interface IInfoData {
+export interface ILoginData {
     message: String,
     access_token: String
 }
 
-// Funcão que consulta a API e retorna os reports
 export async function apiLogin(username, password) {
    
-    const response = await fetch(`${urlApi}/user/login`, {
+    const response = await fetch(`${endpointUrl}/user/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
@@ -23,7 +20,7 @@ export async function apiLogin(username, password) {
     const data = await response.json()
 
     if (data.access_token != undefined) {
-        const decoded = decodeToken(data.access_token)
+        const decoded = verify(data.access_token, endpointKey)
         
         localStorage.setItem('TokenUser', data.access_token)
         localStorage.setItem('NameUser', decoded.name)
@@ -31,39 +28,44 @@ export async function apiLogin(username, password) {
         localStorage.setItem('CpfUser', decoded.cpf)
     }
 
-    const loginData = ref<IInfoData[]>(data);
+    const loginData = ref<ILoginData[]>(data);
 
-    return {
-        loginData,
-    };
+    return { loginData }
 }
 
 export function checkAuth(to, from, next) {
-    try {
-        let token = localStorage.getItem('TokenUser')        
-        verify(token, endpointKey)
+    try 
+    {        
+        verify(localStorage.getItem('TokenUser'), endpointKey)                        
         next()
-    } catch (e) {
-        next('/')
+    } 
+    catch (e) 
+    {
+        next('/login')
     }
 }
 
-export async function getToken(action) {   
-    try {
-        const token = localStorage.getItem('TokenUser')    
-        const decoded = verify(token, endpointKey)
-        return {
-            token,
-        };
-    } catch (e) {
-        window.location.href = '/login'
+export async function getToken() {   
+    try 
+    {
+        const token = localStorage.getItem('TokenUser')            
+        return { token }
+    } 
+    catch (e) 
+    {
+        const token = ''
+        return { token }
     }    
 }
 
-export function decodeToken(token) {
-    const decoded = verify(token, endpointKey)
-
+export async function credentials() {
+    const urlApi = String(endpointUrl)
+    const tokenApi = String((await getToken()).token)
+    const headerApi = { "x-access-token" : tokenApi }       
+    
     return {
-        decoded,
-    };
+        urlApi,
+        tokenApi,
+        headerApi,
+    }
 }

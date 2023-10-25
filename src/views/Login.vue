@@ -88,7 +88,7 @@ export default defineComponent({
       login,
       username,
       password,
-    };
-  },    
+    }
+  },
 });
 </script>

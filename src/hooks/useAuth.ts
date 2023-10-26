@@ -70,27 +70,12 @@ export function credentials() {
     }
 }
 
-function decryptKey() {           
-    let potency = 3
-    let sum_potency = 0
-    let use_potency = true
+function decryptKey() {               
+    let chars = (endpointKey.split('')).reverse()    
+    let endpointKey_decrypt = ''
 
-    const chars = endpointKey.split('')
-    
-    for (let i = 1; i <= chars.lenght; i++) 
-    {
-        sum_potency = use_potency ? potency * i : sum_potency
-
-        if (i == sum_potency)
-        {
-            console.log(chars[i])                
-            use_potency = true
-        }
-        else 
-        {
-            use_potency = false
-        }
-    }
-
-    return endpointKey
+    for(let c = 0; c<=chars.length; c+=7){
+        endpointKey_decrypt += chars[c]    
+    }    
+    return endpointKey_decrypt
 }

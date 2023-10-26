@@ -1,5 +1,4 @@
 import { ref } from 'vue';
-import { verify } from 'jsonwebtoken'
 import { credentials } from './useAuth';
 
 export interface IInfoData {
@@ -8,7 +7,7 @@ export interface IInfoData {
   count_resolved: Int16Array  
 }
 
-const key = await credentials()
+const key = credentials()
 
 export async function useInfoDataDashboard() {        
   const response = await fetch(`${key.urlApi}/report/list/info/1`, { headers: key.headerApi })

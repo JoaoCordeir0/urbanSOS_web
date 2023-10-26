@@ -20,7 +20,7 @@ export async function apiLogin(username, password) {
     const data = await response.json()
 
     if (data.access_token != undefined) {
-        const decoded = verify(data.access_token, endpointKey)
+        const decoded = verify(data.access_token, decryptKey())
         
         localStorage.setItem('TokenUser', data.access_token)
         localStorage.setItem('NameUser', decoded.name)
@@ -36,7 +36,7 @@ export async function apiLogin(username, password) {
 export function checkAuth(to, from, next) {
     try 
     {        
-        verify(localStorage.getItem('TokenUser'), endpointKey)                        
+        verify(localStorage.getItem('TokenUser'), decryptKey())                        
         next()
     } 
     catch (e) 
@@ -45,22 +45,22 @@ export function checkAuth(to, from, next) {
     }
 }
 
-export async function getToken() {   
+export function getToken() {   
     try 
     {
         const token = localStorage.getItem('TokenUser')            
-        return { token }
+        return token
     } 
     catch (e) 
     {
         const token = 'null'
-        return { token }
+        return token 
     }    
 }
 
-export async function credentials() {
+export function credentials() {
     const urlApi = String(endpointUrl)
-    const tokenApi = String((await getToken()).token)
+    const tokenApi = String(getToken())
     const headerApi = { "x-access-token" : tokenApi }       
     
     return {
@@ -68,4 +68,29 @@ export async function credentials() {
         tokenApi,
         headerApi,
     }
+}
+
+function decryptKey() {           
+    let potency = 3
+    let sum_potency = 0
+    let use_potency = true
+
+    const chars = endpointKey.split('')
+    
+    for (let i = 1; i <= chars.lenght; i++) 
+    {
+        sum_potency = use_potency ? potency * i : sum_potency
+
+        if (i == sum_potency)
+        {
+            console.log(chars[i])                
+            use_potency = true
+        }
+        else 
+        {
+            use_potency = false
+        }
+    }
+
+    return endpointKey
 }

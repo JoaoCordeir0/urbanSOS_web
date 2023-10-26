@@ -17,7 +17,7 @@ export interface IAdmsTableData {
   createdAt: string;
 }
 
-const key = await credentials()
+const key = credentials()
 
 export async function useTableDataReports() {    
   const response = await fetch(`${key.urlApi}/report/list/city/1`, { headers: key.headerApi })

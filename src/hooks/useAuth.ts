@@ -19,12 +19,8 @@ export async function apiLogin(username, password) {
 
     const data = await response.json()
 
-    if (data.access_token != undefined) {
-
-        console.log(decryptKey())
-        return
-
-        jwt.verify(data.access_token, 'sua-chave-secreta', (err, decoded) => {
+    if (data.access_token != undefined) {       
+        jwt.verify(data.access_token, decryptKey(), (err, decoded) => {
             if (err) {
                 console.error('Erro ao verificar o token:', err);
             } else {

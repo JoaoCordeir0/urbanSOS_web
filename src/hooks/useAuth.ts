@@ -18,14 +18,13 @@ export async function apiLogin(username, password) {
     });
 
     const data = await response.json()
-    
-    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJuYW1lIjoiSm_Do28gVmljdG9yIENvcmRlaXJvIiwiZW1haWwiOiJqb2FvY29yZGVpcm8yMTM0QGdtYWlsLmNvbSIsImNwZiI6IjEyMzQ1Njc4OTAwIiwiaWF0IjoxNjk4NDIyMTA4LCJleHAiOjE2OTg0NDAxMDh9.iqzKmMiePGHp8JCdIyM4od7jb1GYwdXOzkeG0zI9M-Q'
-    
-    jwt.verify(token, 'urbansos2023', (err, decoded) => {
-        if (err) {
-            console.error('Erro ao verificar o token:', err);
-        } else {
-            console.log('Token verificado com sucesso:', decoded);
+       
+    jwt.verify(data.access_token, decryptKey(), (err, decoded) => {
+        if (!err) {            
+            localStorage.setItem('TokenUser', data.access_token)
+            localStorage.setItem('NameUser', decoded.name)
+            localStorage.setItem('EmailUser', decoded.email)
+            localStorage.setItem('CpfUser', decoded.cpf)            
         }
     });           
 

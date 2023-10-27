@@ -8,39 +8,43 @@
   width: 7px;
 }
 
-::-webkit-scrollbar-track{
+::-webkit-scrollbar-track {
   background: #2D3748;
 }
 
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
   background: #CBD5E0;
 }
 
-::-webkit-scrollbar-thumb:hover{
+::-webkit-scrollbar-thumb:hover {
   background: #718096;
 }
 
-.text-purple{
+.text-purple {
   color: #6750A4 !important;
 }
 
-.border-purple{
+.border-purple {
   border-color: #6750A4 !important;
 }
 
-.bg-purple{
+.bg-purple {
   background-color: #6750A4 !important;
 }
 
-.rounded-login{
+.rounded-login {
   border-top-right-radius: 30px;
   border-bottom-left-radius: 30px;
 }
 
-.btn-purple{
+.btn-purple {
   background-color: #6750A4 !important;
 }
 
-.btn-purple:hover{
+.btn-purple:hover {
   background-color: #402882 !important;
 }
+
+/* #apexchartsline-chart {
+  width: 900px !important;
+} */

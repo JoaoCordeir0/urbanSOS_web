@@ -21,7 +21,7 @@ export async function apiLogin(username, password) {
     
     let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJuYW1lIjoiSm_Do28gVmljdG9yIENvcmRlaXJvIiwiZW1haWwiOiJqb2FvY29yZGVpcm8yMTM0QGdtYWlsLmNvbSIsImNwZiI6IjEyMzQ1Njc4OTAwIiwiaWF0IjoxNjk4NDIyMTA4LCJleHAiOjE2OTg0NDAxMDh9.iqzKmMiePGHp8JCdIyM4od7jb1GYwdXOzkeG0zI9M-Q'
     
-    jwt.verify(token, decryptKey(), (err, decoded) => {
+    jwt.verify(token, 'urbansos2023', (err, decoded) => {
         if (err) {
             console.error('Erro ao verificar o token:', err);
         } else {
@@ -34,14 +34,10 @@ export async function apiLogin(username, password) {
     return { loginData }
 }
 
-export function checkAuth(to, from, next) {
-    try {
-        verify(localStorage.getItem('TokenUser'), decryptKey())
-        next()
-    }
-    catch (e) {
-        next('/login')
-    }
+export function checkAuth(to, from, next) {    
+    jwt.verify(localStorage.getItem('TokenUser'), decryptKey(), (err, decoded) => {
+        err ? next('/login') : next()        
+    })
 }
 
 export function getToken() {

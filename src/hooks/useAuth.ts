@@ -21,14 +21,15 @@ export async function apiLogin(username, password) {
 
     if (data.access_token != undefined) {
         try {
-            const decoded = verify(data.access_token, decryptKey())
-            console.log(decoded, data)
-            localStorage.setItem('TokenUser', data.access_token)
-            localStorage.setItem('NameUser', decoded.name)
-            localStorage.setItem('EmailUser', decoded.email)
-            localStorage.setItem('CpfUser', decoded.cpf)
+            console.log(data)
+            // const decoded = verify(data.access_token, decryptKey())
+            // console.log(decoded, data)
+            // localStorage.setItem('TokenUser', data.access_token)
+            // localStorage.setItem('NameUser', decoded.name)
+            // localStorage.setItem('EmailUser', decoded.email)
+            // localStorage.setItem('CpfUser', decoded.cpf)
         } catch(err) {
-            console.log(err)
+            console.log("erro" + err)
         }
     }
 

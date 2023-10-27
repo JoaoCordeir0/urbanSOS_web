@@ -20,6 +20,7 @@ export async function apiLogin(username, password) {
     const data = await response.json()
        
     jwt.verify(data.access_token, decryptKey(), (err, decoded) => {
+        console.log(err, decoded)
         if (!err) {            
             localStorage.setItem('TokenUser', data.access_token)
             localStorage.setItem('NameUser', decoded.name)

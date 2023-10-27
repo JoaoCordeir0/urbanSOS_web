@@ -47,7 +47,6 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/blank",
     name: "Blank",
-    beforeEnter: checkAuth,
     component: Blank,
   },
   {

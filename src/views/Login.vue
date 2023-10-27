@@ -78,7 +78,8 @@ export default defineComponent({
       
       if (result.loginData.value.access_token != undefined) 
       {
-        router.push('/dashboard') 
+        //router.push('/dashboard') 
+        toast.success(result.loginData.value.message)            
       }
       else 
       {

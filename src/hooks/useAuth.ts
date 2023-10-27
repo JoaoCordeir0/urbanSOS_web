@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import { verify } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 
 const endpointKey = import.meta.env.VITE_KEY_ENDPOINT
 const endpointUrl = import.meta.env.VITE_URL_ENDPOINT  
@@ -21,7 +21,7 @@ export async function apiLogin(username, password) {
 
     if (data.access_token != undefined) {
         try {            
-            const decoded = verify(data.access_token, decryptKey())
+            const decoded = jwt.verify(data.access_token, decryptKey())
             console.log(decoded, data)
             // localStorage.setItem('TokenUser', data.access_token)
             // localStorage.setItem('NameUser', decoded.name)

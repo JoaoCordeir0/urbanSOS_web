@@ -20,12 +20,16 @@ export async function apiLogin(username, password) {
     const data = await response.json()
 
     if (data.access_token != undefined) {
-        const decoded = verify(data.access_token, decryptKey())
-        console.log(decoded, data)
-        localStorage.setItem('TokenUser', data.access_token)
-        localStorage.setItem('NameUser', decoded.name)
-        localStorage.setItem('EmailUser', decoded.email)
-        localStorage.setItem('CpfUser', decoded.cpf)
+        try {
+            const decoded = verify(data.access_token, decryptKey())
+            console.log(decoded, data)
+            localStorage.setItem('TokenUser', data.access_token)
+            localStorage.setItem('NameUser', decoded.name)
+            localStorage.setItem('EmailUser', decoded.email)
+            localStorage.setItem('CpfUser', decoded.cpf)
+        } catch(err) {
+            console.log(err)
+        }
     }
 
     const loginData = ref<ILoginData[]>(data);

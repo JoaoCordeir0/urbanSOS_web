@@ -61,8 +61,7 @@ import 'vue3-toastify/dist/index.css';
 import { apiLogin } from "../hooks/useAuth"
 
 export default defineComponent({
-  setup() {    
-    const router = useRouter()
+  setup() {       
     const username = ref("");
     const password = ref("");
 
@@ -78,7 +77,7 @@ export default defineComponent({
       
       if (result.loginData.value.access_token != undefined) 
       {                
-        router.push('/dashboard')               
+        window.location.href = "/dashboard"
       }
       else 
       {

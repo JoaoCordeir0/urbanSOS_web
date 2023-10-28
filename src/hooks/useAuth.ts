@@ -1,7 +1,6 @@
 import { ref } from 'vue';
-import jwt from 'jsonwebtoken'
+import { useRouter } from 'vue-router';
 
-const endpointKey = import.meta.env.VITE_KEY_ENDPOINT
 const endpointUrl = import.meta.env.VITE_URL_ENDPOINT
 
 export interface ILoginData {
@@ -11,38 +10,44 @@ export interface ILoginData {
 
 export async function apiLogin(username, password) {
 
-    const response = await fetch(`${endpointUrl}/user/login`, {
+    const responseLogin = await fetch(`${endpointUrl}/user/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
-    });
+    })
+    const data = await responseLogin.json()
 
-    const data = await response.json()
-       
-    jwt.verify(data.access_token, decryptKey(), (err, decoded) => {
-        console.log(err, decoded)
-        if (!err) {            
-            localStorage.setItem('TokenUser', data.access_token)
-            localStorage.setItem('NameUser', decoded.name)
-            localStorage.setItem('EmailUser', decoded.email)
-            localStorage.setItem('CpfUser', decoded.cpf)            
-        }
-    });           
+    const token = data.access_token
+
+    // Decode token
+    if (token != undefined) {
+        const responseToken = await fetch(`${endpointUrl}/user/validtoken`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token })
+        })
+        const decoded = await responseToken.json()
+
+        localStorage.setItem('Token', token)
+        localStorage.setItem('TokenExp', decoded.exp)
+        localStorage.setItem('IdUser', decoded.user)
+        localStorage.setItem('NameUser', decoded.name)
+        localStorage.setItem('EmailUser', decoded.email)
+        localStorage.setItem('CpfUser', decoded.cpf)
+    }
 
     const loginData = ref<ILoginData[]>(data);
 
     return { loginData }
 }
 
-export function checkAuth(to, from, next) {    
-    jwt.verify(localStorage.getItem('TokenUser'), decryptKey(), (err, decoded) => {
-        err ? next('/login') : next()        
-    })
+export function checkAuth(to, from, next) {
+    localStorage.getItem('Token') != undefined ? next() : next('/login')    
 }
 
 export function getToken() {
     try {
-        const token = localStorage.getItem('TokenUser')
+        const token = localStorage.getItem('Token')
         return token
     }
     catch (e) {
@@ -63,12 +68,11 @@ export function credentials() {
     }
 }
 
-function decryptKey() {
-    let chars = (endpointKey.split('')).reverse()
-    let endpointKey_decrypt = ''
-
-    for (let c = 0; c <= chars.length; c += 7) {
-        endpointKey_decrypt += chars[c]
-    }
-    return endpointKey_decrypt
+export function validationRequest(data) {    
+    if ((new RegExp('invalid')).test(data.message))    
+    {                
+        localStorage.clear()
+        window.location.href = "/login"        
+    }        
+    return data
 }

@@ -77,8 +77,8 @@ export default defineComponent({
       const result = await apiLogin(username.value, password.value)
       
       if (result.loginData.value.access_token != undefined) 
-      {        
-        toast.success(result.loginData.value.message)                    
+      {                
+        router.push('/dashboard')               
       }
       else 
       {

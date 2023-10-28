@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import { credentials } from './useAuth';
+import { credentials, validationRequest } from './useAuth';
 
 export interface IReportsTableData {
   title: string;
@@ -21,7 +21,7 @@ const key = credentials()
 
 export async function useTableDataReports() {    
   const response = await fetch(`${key.urlApi}/report/list/city/1`, { headers: key.headerApi })
-  const data = await response.json()
+  const data = validationRequest(await response.json())
 
   const reportsData = Array()
 
@@ -43,7 +43,7 @@ export async function useTableDataReports() {
 
 export async function useTableDataAdms() {    
   const response = await fetch(`${key.urlApi}/user/admin/list/2'`, { headers: key.headerApi })
-  const data = await response.json()
+  const data = validationRequest(await response.json())
 
   const admsData = Array()  
 

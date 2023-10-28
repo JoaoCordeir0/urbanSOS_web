@@ -3,9 +3,10 @@ import { useRouter } from 'vue-router';
 
 const endpointUrl = import.meta.env.VITE_URL_ENDPOINT
 
-export interface ILoginData {
+export interface ILoginState {
+    isLoading: boolean,
     message: String,
-    access_token: String
+    token: String
 }
 
 export async function apiLogin(username, password) {
@@ -21,7 +22,7 @@ export async function apiLogin(username, password) {
 
     // Decode token
     if (token != undefined) {
-        const responseToken = await fetch(`${endpointUrl}/user/validtoken`, {
+        const responseToken = await fetch(`${endpointUrl}/user/decodetoken`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ token })
@@ -36,9 +37,9 @@ export async function apiLogin(username, password) {
         localStorage.setItem('CpfUser', decoded.cpf)
     }
 
-    const loginData = ref<ILoginData[]>(data);
+    const loginData = ref<ILoginState[]>(data);
 
-    return { loginData }
+    return loginData 
 }
 
 export function checkAuth(to, from, next) {

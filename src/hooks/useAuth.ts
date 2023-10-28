@@ -1,10 +1,10 @@
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 
 const endpointUrl = import.meta.env.VITE_URL_ENDPOINT
 
 export interface ILoginState {
     isLoading: boolean,
+    isAdmin: boolean,    
     message: String,
     token: String
 }
@@ -17,24 +17,30 @@ export async function apiLogin(username, password) {
         body: JSON.stringify({ username, password })
     })
     const data = await responseLogin.json()
+    
+    if (data.access_token != undefined) 
+    {  
+        const token = data.access_token
 
-    const token = data.access_token
-
-    // Decode token
-    if (token != undefined) {
         const responseToken = await fetch(`${endpointUrl}/user/decodetoken`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ token })
         })
         const decoded = await responseToken.json()
+            
+        if (decoded.admin == 1) {            
+            localStorage.setItem('Token', token)    
+            localStorage.setItem('IdUser', decoded.user)
+            localStorage.setItem('NameUser', decoded.name)
+            localStorage.setItem('EmailUser', decoded.email)
+            localStorage.setItem('CpfUser', decoded.cpf)    
 
-        localStorage.setItem('Token', token)
-        localStorage.setItem('TokenExp', decoded.exp)
-        localStorage.setItem('IdUser', decoded.user)
-        localStorage.setItem('NameUser', decoded.name)
-        localStorage.setItem('EmailUser', decoded.email)
-        localStorage.setItem('CpfUser', decoded.cpf)
+            window.location.href = "/dashboard"
+        } else {
+            // joga o usuário para ver suas informações caso não seja um adm
+            window.location.href = "https://api.urbansos.com.br/"
+        }                    
     }
 
     const loginData = ref<ILoginState[]>(data);
@@ -42,7 +48,7 @@ export async function apiLogin(username, password) {
     return loginData 
 }
 
-export function checkAuth(to, from, next) {
+export function checkAuth(to, from, next) {      
     localStorage.getItem('Token') != undefined ? next() : next('/login')    
 }
 

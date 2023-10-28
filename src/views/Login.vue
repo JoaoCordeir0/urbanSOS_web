@@ -36,7 +36,7 @@
               Sign in
             </span>
             <span v-if="isLoading == true">
-              <img src="/preloader.svg" width="20" id="preloaderLogin" >
+              <img src="/preloader.svg" width="20" id="preloaderLogin">
             </span>
           </button>
         </div>
@@ -49,19 +49,20 @@
 import { defineComponent, ref, reactive, toRefs } from "vue";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-import { apiLogin, ILoginState } from "../hooks/useAuth"
+import { ILoginState, apiLogin, redirectUser } from "../hooks/useAuth"
 
 export default defineComponent({
   setup() {
     const state: ILoginState = reactive({
-      isLoading: false,    
+      isLoading: false,
+      isAdmin: false,
       message: '',
       token: '',
     });
 
     const username = ref("");
     const password = ref("");
-  
+
     async function login() {
       state.isLoading = true
 
@@ -72,13 +73,11 @@ export default defineComponent({
       }
 
       const result = await apiLogin(username.value, password.value)
+      
       state.message = result.value.message
-      state.token = result.value.access_token
+      state.token = result.value.access_token      
 
-      if (state.token != undefined) {        
-        window.location.href = "/dashboard"
-      }
-      else {
+      if (!state.token != undefined) {        
         toast.error(state.message.toString())
         state.isLoading = false
       }

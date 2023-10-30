@@ -22,7 +22,7 @@ export async function apiLogin(username, password) {
     {  
         const token = data.access_token
 
-        const responseToken = await fetch(`${endpointUrl}/user/decodetoken`, {
+        const responseToken = await fetch(`${endpointUrl}/token/decode`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ token })
@@ -76,7 +76,8 @@ export function credentials() {
 }
 
 export function validationRequest(data) {    
-    if ((new RegExp('invalid')).test(data.message))    
+    if ((new RegExp('invalid')).test(data.message) ||         
+        (new RegExp('expired')).test(data.message))    
     {                
         localStorage.clear()
         window.location.href = "/login"        

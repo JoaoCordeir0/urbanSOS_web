@@ -1,5 +1,6 @@
 import { ref } from 'vue';
 import { credentials, validationRequest } from './useAuth';
+import axios from 'axios';
 
 export interface IInfoData {
   count_total: Int16Array
@@ -10,8 +11,7 @@ export interface IInfoData {
 const key = credentials()
 
 export async function useInfoDataDashboard() {
-  const response = await fetch(`${key.urlApi}/report/list/info/1`, { headers: key.headerApi })
-  const data = validationRequest(await response.json())
+  const { data } = await axios.get(`${key.urlApi}/report/list/info/1`, { headers: key.headerApi })
 
   const dashTableData = ref<IInfoData[]>(data)
 

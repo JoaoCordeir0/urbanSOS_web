@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { ref } from 'vue';
 
 const endpointUrl = import.meta.env.VITE_URL_ENDPOINT
@@ -11,30 +12,27 @@ export interface ILoginState {
 
 export async function apiLogin(username, password) {
 
-    const responseLogin = await fetch(`${endpointUrl}/user/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    })
-    const data = await responseLogin.json()
-    
-    if (data.access_token != undefined) 
-    {  
-        const token = data.access_token
+    var params = new URLSearchParams()
+    params.append('username', username)
+    params.append('password', password)
 
-        const responseToken = await fetch(`${endpointUrl}/token/decode`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ token })
-        })
-        const decoded = await responseToken.json()
-            
-        if (decoded.admin == 1) {            
+    const { data } = await axios.post(`${endpointUrl}/user/login`, params)
+    
+    const token = data.access_token
+
+    if (token != undefined) 
+    {  
+        var params = new URLSearchParams()
+        params.append('token', token)
+        
+        const { data } = await axios.post(`${endpointUrl}/token/decode`, params)
+                    
+        if (data.admin == 1) {            
             localStorage.setItem('Token', token)    
-            localStorage.setItem('IdUser', decoded.user)
-            localStorage.setItem('NameUser', decoded.name)
-            localStorage.setItem('EmailUser', decoded.email)
-            localStorage.setItem('CpfUser', decoded.cpf)    
+            localStorage.setItem('IdUser', data.user)
+            localStorage.setItem('NameUser', data.name)
+            localStorage.setItem('EmailUser', data.email)
+            localStorage.setItem('CpfUser', data.cpf)    
 
             window.location.href = "/dashboard"
         } else {

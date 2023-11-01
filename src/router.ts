@@ -3,6 +3,7 @@ import { checkAuth } from "./hooks/useAuth";
 
 import Dashboard from "./views/Dashboard.vue";
 import Reports from "./views/Reports.vue";
+import Report from "./views/Report.vue";
 import Login from "./views/Login.vue";
 import Adms from "./views/Adms.vue";
 import NotFound from "./views/NotFound.vue";
@@ -36,7 +37,7 @@ const routes: RouteRecordRaw[] = [
     path: "/report/:id",
     name: "ReportsEdit",    
     beforeEnter: checkAuth,
-    component: Reports,
+    component: Report,
   },
   {
     path: "/adms",

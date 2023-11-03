@@ -73,7 +73,7 @@
 
                   <td
                     class="px-6 py-4 text-sm font-medium leading-5 text-right border-b border-gray-200 whitespace-nowrap">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                    <a :href="`adm/${ item.id }`" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                   </td>
                 </tr>
               </tbody>

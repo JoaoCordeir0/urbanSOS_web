@@ -18,22 +18,24 @@ export async function apiLogin(username, password) {
 
     const { data } = await axios.post(`${endpointUrl}/user/login`, params)
     
+    validationRequest(data)
+
     const token = data.access_token
 
     if (token != undefined) 
-    {                      
-        if (data.admin == 1) {            
-            localStorage.setItem('Token', token)    
-            localStorage.setItem('IdUser', data.user.id)
-            localStorage.setItem('NameUser', data.user.name)
-            localStorage.setItem('EmailUser', data.user.email)
-            localStorage.setItem('CpfUser', data.user.cpf)    
+    {       
+        localStorage.setItem('Token', token)    
+        localStorage.setItem('IdUser', data.user.id)
+        localStorage.setItem('NameUser', data.user.name)
+        localStorage.setItem('EmailUser', data.user.email)
+        localStorage.setItem('CpfUser', data.user.cpf)  
 
+        if (data.admin == 1) {                          
+            localStorage.setItem('AdminUser', '1')  
             window.location.href = "/dashboard"
-        } else {
-            // joga o usuário para ver suas informações caso não seja um adm
-            window.location.href = "https://api.urbansos.com.br/"
-        }                    
+        } else {            
+            window.location.href = "/user/" + data.user.id
+        }
     }
 
     const loginData = ref<ILoginState[]>(data);
@@ -41,7 +43,11 @@ export async function apiLogin(username, password) {
     return loginData 
 }
 
-export function checkAuth(to, from, next) {      
+export function checkAuthAdmin(to, from, next) {      
+    localStorage.getItem('Token') != undefined && localStorage.getItem('AdminUser') == '1' ? next() : next('/login')    
+}
+
+export function checkAuthUser(to, from, next) {      
     localStorage.getItem('Token') != undefined ? next() : next('/login')    
 }
 
@@ -74,6 +80,6 @@ export function validationRequest(data) {
     {                
         localStorage.clear()
         window.location.href = "/login"        
-    }        
+    }            
     return data
 }

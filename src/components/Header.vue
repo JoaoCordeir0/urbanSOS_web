@@ -56,7 +56,7 @@
             class="absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl"
           >
             <a
-              href="#"
+              :href="`/adm/${userId}`"
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
               >Profile</a
             >            
@@ -80,6 +80,7 @@ import { useSidebar } from "../hooks/useSidebar";
 export default defineComponent({     
   data() {
     return {
+      userId: null,
       hours: 0,
       minutes: 0,
       seconds: 0
@@ -94,6 +95,7 @@ export default defineComponent({
       let hours = date.getHours()
       let minutes = date.getMinutes()
       let seconds = date.getSeconds()
+      this.userId = localStorage.getItem("IdUser")
       this.hours = hours <= 9 ? `${hours}`.padStart(2, 0) : hours
       this.minutes = minutes <= 9 ? `${minutes}`.padStart(2, 0) : minutes
       this.seconds = seconds <= 9 ? `${seconds}`.padStart(2, 0) : seconds                  
@@ -107,7 +109,7 @@ export default defineComponent({
     const dropdownOpen = ref(false);
     const { isOpen } = useSidebar();
   
-    return {
+    return {      
       isOpen,
       dropdownOpen,    
     };

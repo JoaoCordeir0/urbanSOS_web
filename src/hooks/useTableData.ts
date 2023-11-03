@@ -23,6 +23,8 @@ const key = credentials()
 export async function useTableDataReports() {    
   const { data } = await axios.get(`${key.urlApi}/report/list/city/1`, { headers: key.headerApi })
 
+  validationRequest(data)
+
   const reportsData = Array()
 
   data.forEach(item => {
@@ -44,10 +46,13 @@ export async function useTableDataReports() {
 export async function useTableDataAdms() {    
   const { data } = await axios.get(`${key.urlApi}/user/admin/list/2`, { headers: key.headerApi })
 
+  validationRequest(data)
+  
   const admsData = Array()  
 
   data.forEach(item => {
-    admsData.push({      
+    admsData.push({  
+      id: item.id,    
       name: item.name,
       email: item.email,
       cpf: item.cpf,

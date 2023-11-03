@@ -1,12 +1,14 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import { checkAuth } from "./hooks/useAuth";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
+import { checkAuthAdmin, checkAuthUser } from "./hooks/useAuth"
 
-import Dashboard from "./views/Dashboard.vue";
-import Reports from "./views/Reports.vue";
-import Report from "./views/Report.vue";
-import Login from "./views/Login.vue";
-import Adms from "./views/Adms.vue";
-import NotFound from "./views/NotFound.vue";
+import Dashboard from "./views/Dashboard.vue"
+import Reports from "./views/Reports.vue"
+import Report from "./views/Report.vue"
+import Login from "./views/Login.vue"
+import Adms from "./views/Adms.vue"
+import Adm from "./views/Adm.vue"
+import User from "./views/User.vue"
+import NotFound from "./views/NotFound.vue"
 
 const routes: RouteRecordRaw[] = [
   {
@@ -24,26 +26,39 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/dashboard",
     name: "Dashboard",
-    beforeEnter: checkAuth,
+    beforeEnter: checkAuthAdmin,
     component: Dashboard,
   },
   {
     path: "/reports",
     name: "Reports",
-    beforeEnter: checkAuth,
+    beforeEnter: checkAuthAdmin,
     component: Reports,
   },
   {
     path: "/report/:id",
     name: "ReportsEdit",    
-    beforeEnter: checkAuth,
+    beforeEnter: checkAuthAdmin,
     component: Report,
   },
   {
     path: "/adms",
     name: "Adms",
-    beforeEnter: checkAuth,
+    beforeEnter: checkAuthAdmin,
     component: Adms,
+  },
+  {
+    path: "/adm/:id",
+    name: "Adm",
+    beforeEnter: checkAuthAdmin,
+    component: Adm,    
+  },  
+  {
+    path: "/user/:id",
+    name: "User",
+    beforeEnter: checkAuthUser,
+    component: User,
+    meta: { layout: "empty" },
   },  
   {
     path: "/:pathMatch(.*)*",

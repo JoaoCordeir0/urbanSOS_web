@@ -43,3 +43,16 @@ export async function useFormUser(id) {
   
   return userFormData 
 }
+
+export async function useUpdateReportStatus(status, id) {
+
+  const updateParams = {
+    report: id,
+    status: status,
+    token: key.tokenApi
+  }
+  
+  const { data } = await axios.patch(`${key.urlApi}/report/update/status`, updateParams)  
+
+  return data
+}

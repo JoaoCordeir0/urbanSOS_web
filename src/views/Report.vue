@@ -38,7 +38,7 @@
 
                             <div class="md:col-span-1">
                                 <label for="status">Status</label>
-                                <select name="status" id="status"
+                                <select name="status" id="status" v-model="status" v-on:change="updateStatusReport"
                                     class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50">
                                     <option value="0">Opened</option>
                                     <option value="1">Resolved</option>
@@ -54,7 +54,8 @@
   
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { useFormReport } from "../hooks/useFormData";
+import { toast } from 'vue3-toastify';
+import { useFormReport, useUpdateReportStatus } from "../hooks/useFormData";
 
 export default defineComponent({
     data() {
@@ -74,6 +75,11 @@ export default defineComponent({
             this.title = data.value.title
             this.description = data.value.description
             this.situation = data.value.situation
+            this.status = data.value.status            
+        },
+        async updateStatusReport() {
+            const result = await useUpdateReportStatus(this.status, this.id)
+            toast.success(result.message.toString())
         }
     },
     beforeMount() {

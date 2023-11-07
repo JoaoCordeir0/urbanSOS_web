@@ -32,7 +32,7 @@ export async function useTableDataReports() {
       id: item.id,
       title: item.title,
       description: item.description,
-      createdAt: item.createdAt,
+      createdAt: formatDate(item.createdAt),
       situation: item.situation,
       status: item.status,     
     })
@@ -57,11 +57,15 @@ export async function useTableDataAdms() {
       email: item.email,
       cpf: item.cpf,
       status: item.status == 1 ? 'Active' : 'Inactive',
-      createdAt: item.createdAt,
+      createdAt: formatDate(item.createdAt),
     })
   })
  
   const admsTableData = ref<IAdmsTableData[]>( admsData )
   
   return { admsTableData }
+}
+
+function formatDate(date) {  
+  return ((new Date(date)).toLocaleString('pt-BR', { timezone: 'UTC' })).replace(',', '')
 }

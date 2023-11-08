@@ -20,30 +20,48 @@ export interface IUserFormData {
   createdAt: string;
 }
 
+export interface ISettingsFormData {
+  id: string;
+  name: string;  
+  state: string;
+  email: string;
+  status: string;
+  createdAt: string;
+}
+
 const key = credentials()
 
+// Dados de reports
 export async function useFormReport(id) {  
 
   const { data } = await axios.get(`${key.urlApi}/report/details/${id}`, { headers: key.headerApi })  
 
   validationRequest(data)
 
-  const reportFormData = ref<IReportFormData[]>( data )
-  
-  return reportFormData 
+  return ref<IReportFormData[]>( data )
 }
 
+// Dados de usuário
 export async function useFormUser(id) {  
 
   const { data } = await axios.get(`${key.urlApi}/user/details/${id}`, { headers: key.headerApi })  
 
   validationRequest(data)
   
-  const userFormData = ref<IUserFormData[]>( data )
-  
-  return userFormData 
+  return ref<IUserFormData[]>( data )     
 }
 
+// Dados de configurações
+export async function useFormSettings(id) {  
+
+  const { data } = await axios.get(`${key.urlApi}/city/details/${id}`, { headers: key.headerApi })  
+
+  validationRequest(data)
+  
+  return ref<ISettingsFormData[]>( data[0] )
+}
+
+// Atualiza status de um report
 export async function useUpdateReportStatus(status, id) {
 
   const updateParams = {

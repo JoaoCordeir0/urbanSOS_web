@@ -12,6 +12,8 @@ export interface ILoginState {
 
 export async function apiLogin(username, password) {
 
+    localStorage.clear();
+    
     var params = new URLSearchParams()
     params.append('username', username)
     params.append('password', password)
@@ -30,8 +32,9 @@ export async function apiLogin(username, password) {
         localStorage.setItem('EmailUser', data.user.email)
         localStorage.setItem('CpfUser', data.user.cpf)  
 
-        if (data.admin == 1) {                          
+        if (data.admin != undefined) {                          
             localStorage.setItem('AdminUser', '1')  
+            localStorage.setItem('AdminCity', data.admin.cityId)  
             window.location.href = "/dashboard"
         } else {            
             window.location.href = "/user/" + data.user.id

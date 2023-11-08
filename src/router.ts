@@ -8,6 +8,7 @@ import Login from "./views/Login.vue"
 import Adms from "./views/Adms.vue"
 import Adm from "./views/Adm.vue"
 import User from "./views/User.vue"
+import Settings from "./views/Settings.vue"
 import NotFound from "./views/NotFound.vue"
 
 const routes: RouteRecordRaw[] = [
@@ -59,6 +60,12 @@ const routes: RouteRecordRaw[] = [
     beforeEnter: checkAuthUser,
     component: User,
     meta: { layout: "empty" },
+  },  
+  {
+    path: "/settings",
+    name: "Settings",
+    beforeEnter: checkAuthAdmin,
+    component: Settings,    
   },  
   {
     path: "/:pathMatch(.*)*",

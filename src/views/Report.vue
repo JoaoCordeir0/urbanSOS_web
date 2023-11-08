@@ -35,7 +35,7 @@
                         <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                             <div class="md:col-span-5">
                                 <label for="title">Title</label>
-                                <input type="text" name="title" id="title"
+                                <input type="text" name="title" id="title" disabled
                                     class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" v-model="title" />
                             </div>
 
@@ -55,7 +55,7 @@
                         <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                             <div class="md:col-span-5">
                                 <label for="description">Description</label>
-                                <textarea name="description" id="description" cols="30" rows="20"
+                                <textarea name="description" id="description" cols="30" rows="20" disabled
                                     class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" v-model="description"
                                     placeholder="" style="min-height: 100px;"></textarea>
                             </div>

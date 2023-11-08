@@ -104,9 +104,11 @@
                       item.situation }}</span>
                 </td>
                 <td class="px-5 py-5 border-b bg-white border-gray-200 whitespace-nowrap">
-                  <span v-if="item.status == 0"
+                  <span v-if="item.status == 'Opened'"
                     :class="`inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-300 rounded-full`">Opened</span>
-                  <span v-if="item.status == 1"
+                  <span v-if="item.status == 'In progress'"
+                    :class="`inline-flex px-2 text-xs font-semibold leading-5 text-blue-800 bg-blue-100 rounded-full`">In progress</span>
+                  <span v-if="item.status == 'Resolved'"
                     :class="`inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full`">Resolved</span>
                 </td>
                 <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">

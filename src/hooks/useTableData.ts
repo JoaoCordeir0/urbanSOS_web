@@ -56,7 +56,7 @@ export async function useTableDataAdms() {
       name: item.name,
       email: item.email,
       cpf: item.cpf,
-      status: item.status == 1 ? 'Active' : 'Inactive',
+      status: item.status,
       createdAt: formatDate(item.createdAt),
     })
   })

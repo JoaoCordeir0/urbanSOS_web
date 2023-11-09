@@ -31,23 +31,21 @@
                 </div>
 
                 <div class="grid mt-5 gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-                    <div>
-                        <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                            <div class="md:col-span-5">
-                                <label for="title">Title</label>
-                                <input type="text" name="title" id="title" disabled
-                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" v-model="title" />
-                            </div>
+                    <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                        <div class="md:col-span-5">
+                            <label for="title">Title</label>
+                            <input type="text" name="title" id="title" disabled
+                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" v-model="title" />
+                        </div>
 
-                            <div class="md:col-span-3">
-                                <label for="status">Status</label>
-                                <select name="status" id="status" v-model="status" v-on:change="updateStatusReport"
-                                    class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50">
-                                    <option value="Opened">Opened</option>
-                                    <option value="In progress">In progress</option>                                    
-                                    <option value="Resolved">Resolved</option>
-                                </select>
-                            </div>
+                        <div class="md:col-span-3">
+                            <label for="status">Status</label>
+                            <select name="status" id="status" v-model="status" v-on:change="updateStatusReport"
+                                class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                                <option value="Opened">Opened</option>
+                                <option value="In progress">In progress</option>
+                                <option value="Resolved">Resolved</option>
+                            </select>
                         </div>
                     </div>
 

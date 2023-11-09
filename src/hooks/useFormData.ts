@@ -74,3 +74,8 @@ export async function useUpdateReportStatus(status, id) {
 
   return data
 }
+
+// Atualiza informações da cidade
+export async function useUpdateSettings(name, email, state, status) {
+  console.log(name)
+}

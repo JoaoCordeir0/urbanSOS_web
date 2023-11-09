@@ -76,6 +76,16 @@ export async function useUpdateReportStatus(status, id) {
 }
 
 // Atualiza informações da cidade
-export async function useUpdateSettings(name, email, state, status) {
-  console.log(name)
+export async function useUpdateSettings(id, email, status) {
+  
+  const updateParams = {
+    city: id,
+    email: email,
+    status: status,
+    token: key.tokenApi
+  }
+  
+  const { data } = await axios.put(`${key.urlApi}/city/update/`, updateParams)  
+
+  return data
 }

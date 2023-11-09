@@ -48,8 +48,7 @@
 <script lang="ts">
 import { defineComponent, ref, reactive, toRefs } from "vue";
 import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
-import { ILoginState, apiLogin, redirectUser } from "../hooks/useAuth"
+import { ILoginState, apiLogin } from "../hooks/useAuth"
 
 export default defineComponent({
   setup() {

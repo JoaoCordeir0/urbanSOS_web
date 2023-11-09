@@ -8,7 +8,7 @@
                     <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                         <div class="md:col-span-5">
                             <label for="name">Name</label>
-                            <input type="text" name="name" id="name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                            <input type="text" name="name" id="name" disabled class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                                 v-model="name" />
                         </div>
                     </div>
@@ -24,7 +24,7 @@
                     <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                         <div class="md:col-span-3">
                             <label for="status">State</label>
-                            <select name="status" id="status" v-model="state" v-on:change=""
+                            <select name="status" id="status" v-model="state" v-on:change="" disabled
                                 class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50">
                                 <option value="AC">Acre</option>
                                 <option value="AL">Alagoas</option>
@@ -102,8 +102,8 @@ export default defineComponent({
             this.state = data.value.state
         },
         async updateSettings() {
-            const result = await useUpdateSettings(this.name, this.email, this.state, this.status)
-            toast.success("em dev")
+            const result = await useUpdateSettings(this.id, this.email, this.status)
+            toast.success(result.message.toString())
         }
     },
     beforeMount() {

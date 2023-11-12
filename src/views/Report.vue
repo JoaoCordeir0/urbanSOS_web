@@ -39,6 +39,11 @@
                         </div>
 
                         <div class="md:col-span-3">
+                            <label for="title">Created in</label>
+                            <input type="text" name="title" id="title" disabled
+                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" v-model="date" />
+                        </div>
+                        <div class="md:col-span-2">
                             <label for="status">Status</label>
                             <select name="status" id="status" v-model="status" v-on:change="updateStatusReport"
                                 class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50">
@@ -55,7 +60,7 @@
                                 <label for="description">Description</label>
                                 <textarea name="description" id="description" cols="30" rows="20" disabled
                                     class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" v-model="description"
-                                    placeholder="" style="min-height: 100px;"></textarea>
+                                    placeholder="" style="min-height: 118px;"></textarea>
                             </div>
                         </div>
                     </div>
@@ -78,6 +83,7 @@ export default defineComponent({
             image: '',
             title: '',
             description: '',
+            date: '',
             situation: '',
             status: '',
             latitude: 0,
@@ -92,6 +98,7 @@ export default defineComponent({
             this.title = data.value.title
             this.description = data.value.description
             this.situation = data.value.situation
+            this.date = ((new Date(data.value.createdAt)).toLocaleString('pt-BR', { timezone: 'UTC' })).replace(',', '')
             this.status = data.value.status
             this.latitude = data.value.latitude
             this.longitude = data.value.longitude

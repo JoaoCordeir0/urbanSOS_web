@@ -67,9 +67,11 @@
                         item.status }}</span>
                   </td>
 
-                  <td class="px-6 py-4 text-sm leading-5 text-gray-500 border-b border-gray-200 whitespace-nowrap">
-                    {{ item.createdAt }}
-                  </td>
+                  <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                    <div class="text-sm leading-5 text-gray-900">
+                      {{ item.createdAt }}
+                    </div>                    
+                  </td>                 
 
                   <td
                     class="px-6 py-4 text-sm font-medium leading-5 text-right border-b border-gray-200 whitespace-nowrap">

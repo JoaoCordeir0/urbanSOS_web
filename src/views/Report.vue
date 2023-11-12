@@ -18,7 +18,7 @@
                     <div class="">
                         <span class="mb-4">Image</span>
                         <img width="450" class="mt-2"
-                            src="https://3.bp.blogspot.com/-Tf1Vi5hOMB4/XCIp1KzaBBI/AAAAAAAAQBc/JjtA2QTubrkS8nLPHVy7tFakLzCqzGdKwCLcBGAs/s1600/Chevrlolet-Vectra-GT-2011%2B%25281%2529.jpg"
+                            v-bind:src="image"                            
                             alt="">
                     </div>
 
@@ -75,7 +75,7 @@ export default defineComponent({
     data() {
         return {
             id: this.$route.params.id,
-            img: '',
+            image: '',
             title: '',
             description: '',
             situation: '',
@@ -88,6 +88,7 @@ export default defineComponent({
         async getFormData() {
             const data = await useFormReport(this.id)
 
+            this.image = import.meta.env.VITE_BUCKET_S3 + data.value.image
             this.title = data.value.title
             this.description = data.value.description
             this.situation = data.value.situation

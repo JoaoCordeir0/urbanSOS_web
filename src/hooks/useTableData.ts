@@ -44,19 +44,21 @@ export async function useTableDataReports() {
 }
 
 export async function useTableDataAdms() {    
-  const { data } = await axios.get(`${key.urlApi}/user/admin/list/2`, { headers: key.headerApi })
+  //const { data } = await axios.get(`${key.urlApi}/user/admin/list/${localStorage.getItem('AdminCity')}`, { headers: key.headerApi })
+  const { data } = await axios.get(`${key.urlApi}/user/admin/list/3`, { headers: key.headerApi })
 
   validationRequest(data)
   
   const admsData = Array()  
-
+  
   data.forEach(item => {
+    console.log(item.status)
     admsData.push({  
       id: item.id,    
       name: item.name,
       email: item.email,
       cpf: item.cpf,
-      status: item.status,
+      status: item.admin.status == 1 ? 'Active' : 'Inactive',
       createdAt: formatDate(item.createdAt),
     })
   })

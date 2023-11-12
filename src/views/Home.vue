@@ -57,7 +57,12 @@
 
 </template>
   
-<script lang="ts">
-import '../assets/styles.css';
-</script>
-  
+<style>
+body {
+  background: #111827;
+}
+p {
+    color: white;
+    font: 400 1rem/1.625rem "Open Sans", sans-serif;
+}
+</style>

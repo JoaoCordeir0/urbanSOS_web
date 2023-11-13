@@ -10,7 +10,7 @@
         <a class="btn-login text-center text-white focus:outline-none font-bold" href="/login">Login</a>
       </div>
       <div class="xl:text-right">
-        <img class="inline" src="/demo.png" alt="alternative" />
+        <img class="inline" src="/demo2.png" alt="alternative" />
       </div>
     </div>
   </header>

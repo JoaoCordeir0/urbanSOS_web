@@ -6,7 +6,7 @@
         <h1 class="h1-large mb-5 nomeapp">Urban reporting system</h1>
         <p class="p-large mb-8">Created with the purpose of keeping cities more organized with the help of the population
         </p>        
-        <a class="btn-download text-center text-white focus:outline-none font-bold" download="https://s3.sa-east-1.amazonaws.com/urbansos.apk/urbansos-release.apk" href="#download">Download</a>
+        <a class="btn-download text-center text-white focus:outline-none font-bold" download="https://s3.sa-east-1.amazonaws.com/urbansos.apk/urbansos-release.apk" href="https://s3.sa-east-1.amazonaws.com/urbansos.apk/urbansos-release.apk">Download</a>
         <a class="btn-login text-center text-white focus:outline-none font-bold" href="/login">Login</a>
       </div>
       <div class="xl:text-right">

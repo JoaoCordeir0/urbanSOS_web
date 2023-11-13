@@ -45,7 +45,7 @@
                         </div>
                         <div class="md:col-span-2">
                             <label for="status">Status</label>
-                            <select name="status" id="status" v-model="status" v-on:change="updateStatusReport"
+                            <select name="status" id="status" v-model="status" :disabled="permissionEdit" v-on:change="updateStatusReport"
                                 class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50">
                                 <option value="Opened">Opened</option>
                                 <option value="In progress">In progress</option>
@@ -88,6 +88,7 @@ export default defineComponent({
             status: '',
             latitude: 0,
             longitude: 0,
+            permissionEdit: false,
         }
     },
     methods: {
@@ -104,6 +105,10 @@ export default defineComponent({
             this.longitude = data.value.longitude
 
             document.getElementById('map').innerHTML = '<iframe width="100%" height="302" frameborder="0" src = "https://maps.google.com/maps?q=' + this.latitude + ',' + this.longitude + '&hl=pt;z=14&amp;output=embed"></iframe>                        '
+
+            if (this.status == 'Resolved') {
+                this.permissionEdit = true
+            }            
         },
         async updateStatusReport() {
             const result = await useUpdateReportStatus(this.status, this.id)

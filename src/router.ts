@@ -10,6 +10,7 @@ import Adms from "./views/Adms.vue"
 import Adm from "./views/Adm.vue"
 import User from "./views/User.vue"
 import Settings from "./views/Settings.vue"
+import RecoverPassword from "./views/RecoverPassword.vue"
 import NotFound from "./views/NotFound.vue"
 
 const routes: RouteRecordRaw[] = [
@@ -68,6 +69,12 @@ const routes: RouteRecordRaw[] = [
     beforeEnter: checkAuthAdmin,
     component: Settings,    
   },  
+  {
+    path: "/recoverpassword/:token",
+    name: "RecoverPassword",
+    component: RecoverPassword,
+    meta: { layout: "empty" },  
+  },
   {
     path: "/:pathMatch(.*)*",
     name: "NotFound",

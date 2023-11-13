@@ -11,7 +11,7 @@ export interface IInfoData {
 const key = credentials()
 
 export async function useInfoDataDashboard() {
-  const { data } = await axios.get(`${key.urlApi}/report/list/info/1`, { headers: key.headerApi })
+  const { data } = await axios.get(`${key.urlApi}/report/list/info/${localStorage.getItem('AdminCity')}`, { headers: key.headerApi })
 
   const dashTableData = ref<IInfoData[]>(data)
 

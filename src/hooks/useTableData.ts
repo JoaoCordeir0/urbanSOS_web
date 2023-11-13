@@ -21,7 +21,7 @@ export interface IAdmsTableData {
 const key = credentials()
 
 export async function useTableDataReports() {    
-  const { data } = await axios.get(`${key.urlApi}/report/list/city/1`, { headers: key.headerApi })
+  const { data } = await axios.get(`${key.urlApi}/report/list/city/${localStorage.getItem('AdminCity')}`, { headers: key.headerApi })
 
   validationRequest(data)
 
@@ -44,8 +44,7 @@ export async function useTableDataReports() {
 }
 
 export async function useTableDataAdms() {    
-  //const { data } = await axios.get(`${key.urlApi}/user/admin/list/${localStorage.getItem('AdminCity')}`, { headers: key.headerApi })
-  const { data } = await axios.get(`${key.urlApi}/user/admin/list/3`, { headers: key.headerApi })
+  const { data } = await axios.get(`${key.urlApi}/user/admin/list/${localStorage.getItem('AdminCity')}`, { headers: key.headerApi })  
 
   validationRequest(data)
   

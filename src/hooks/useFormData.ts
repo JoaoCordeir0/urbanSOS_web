@@ -38,7 +38,7 @@ export async function useFormReport(id) {
 
   validationRequest(data)
 
-  return ref<IReportFormData[]>( data )
+  return ref<IReportFormData[]>( data[0] )
 }
 
 // Dados de usuário

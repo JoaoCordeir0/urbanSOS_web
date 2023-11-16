@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 import { checkAuthAdmin, checkAuthUser } from "./hooks/useAuth"
 
+import Auth from "./views/Auth.vue"
 import Home from "./views/Home.vue"
 import Dashboard from "./views/Dashboard.vue"
 import Reports from "./views/Reports.vue"
@@ -61,6 +62,12 @@ const routes: RouteRecordRaw[] = [
     name: "User",
     beforeEnter: checkAuthUser,
     component: User,
+    meta: { layout: "empty" },
+  },  
+  {
+    path: "/auth/:id/:token",
+    name: "Auth",    
+    component: Auth,
     meta: { layout: "empty" },
   },  
   {
